@@ -1,9 +1,9 @@
 # app.reservasalas
 
-App Client Frontend para API de reservas de salas 
+App Client Frontend para API de reservas de salas.
 
 Para execução deste projeto sugiro o servidor http simples de zero configuração: <b>http-server</b>
-<br>
+
 Disponível nos repositórios de pacotes do npm.
 
 * Para instalar o http-server por linha de comando (com o NodeJS previamente instalado):
@@ -15,4 +15,4 @@ Disponível nos repositórios de pacotes do npm.
         http-server -p8081
 
 <br>PS. Poderá também ser publicado localmente em outros servidores http, exemplo: Apache.
-<br>PSS. Utilizar porta diferente da 8080 onde por padrão responde a API Backend.
+<br>PSS. Importante utilizar porta diferente da 8080 onde por padrão responde a API Backend.
