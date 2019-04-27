@@ -9,7 +9,7 @@ Para execução deste projeto sugiro o servidor HTTP simples e de zero configura
 
         npm install http-server -g
 
-* Executar na porta 8081, por linha de comando, a partir do diretorio local com o arquivo index.html:
+* Executar na porta 8081, por linha de comando, a partir do diretório local com o arquivo index.html:
  
         http-server -p8081
 
