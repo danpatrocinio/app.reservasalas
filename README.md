@@ -14,6 +14,5 @@ Disponível nos repositórios de pacotes do npm.
  
         http-server -p8081
 
-<br>
-PS. Poderá também ser publicado localmente em outros servidores http, exemplo: Apache
-Utilizar porta diferente da 8080 onde por padrão responde a API Backend.
+<br>PS. Poderá também ser publicado localmente em outros servidores http, exemplo: Apache.
+<br>PSS. Utilizar porta diferente da 8080 onde por padrão responde a API Backend.
