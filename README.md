@@ -2,9 +2,8 @@
 
 App Client Frontend para API de reservas de salas.
 
-Para execução deste projeto sugiro o servidor http simples de zero configuração: <b>http-server</b>
-
-Disponível nos repositórios de pacotes do npm.
+Para execução deste projeto sugiro o servidor HTTP simples e de zero configuração: <b>http-server</b>
+<br>Disponível nos repositórios de pacotes do npm: https://www.npmjs.com/package/http-server
 
 * Para instalar o http-server por linha de comando (com o NodeJS previamente instalado):
 
