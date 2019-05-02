@@ -40,55 +40,59 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="reservaModalLabel">{{!reserva.id ? 'Adicionando reserva' : 'Editando reserva'}}</h5>
+                    <h5 class="modal-title" id="reservaModalLabel">{{!reserva.id ? 'Nova reserva' : 'Editando reserva'}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form id="reservaForm" name="reservaForm">
-                        <div class="form-group col-12">
-                            <label for="salas">Sala:</label>
-                            <select id="salas" class="custom-select" ng-model="reserva.sala" ng-required="true">
-                                <option value ="">Selecione a sala</option>
-                                <option ng-repeat="sala in salas | orderBy:'nome'" ng-value="sala" ng-selected="reserva.sala.id === sala.id">
-                                    {{'[' + sala.local.descricao + '] - ' + sala.descricao}}
-                                </option>
-                            </select>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="salas">Sala:</label>
+                                <select id="salas" class="custom-select" ng-model="reserva.sala" ng-required="true">
+                                    <option value ="">Selecione a sala</option>
+                                    <option ng-repeat="sala in salas | orderBy:'nome'" ng-value="sala" ng-selected="reserva.sala.id === sala.id">
+                                        {{'[' + sala.local.descricao + '] - ' + sala.descricao}}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group col-12">
-                            <label for="usuarios">Usuário:</label>
-                            <select id="usuarios" class="custom-select" ng-model="reserva.usuario" ng-required="true">
-                                <option value ="">Selecione a usuário</option>
-                                <option ng-repeat="usuario in usuarios | orderBy:'nome'" ng-value="usuario" ng-selected="reserva.usuario.id === usuario.id">
-                                    {{usuario.nome}}
-                                </option>
-                            </select>
-                        </div>
-                        <div class="form-inline">
+                        <div class="form-row">
                             <div class="form-group col-4">
-                                <label>Data/hora início:</label>
+                                <label for="usuarios">Usuário:</label>
+                                <select id="usuarios" class="custom-select" ng-model="reserva.usuario" ng-required="true">
+                                    <option value ="">Selecione a usuário</option>
+                                    <option ng-repeat="usuario in usuarios | orderBy:'nome'" ng-value="usuario" ng-selected="reserva.usuario.id === usuario.id">
+                                        {{usuario.nome}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="dhInicio">Data/hora início:</label>
                                 <input ng-model="reserva.dhInicio" ng-required="true" class="form-control" type="datetime-local" name="dhInicio" id="dhInicio" required>
                             </div>
                             <div class="form-group col-4">
-                                <label>Data/hora final:</label>
+                                <label for="dhFinal">Data/hora final:</label>
                                 <input ng-model="reserva.dhFinal" ng-required="true" class="form-control" type="datetime-local" name="dhFinal" id="dhFinal" required>
                             </div>
                         </div>
-                        <div class="form-inline">
-                            <div class="form-group col-4">
-                                <input type="checkbox" name="cafe" id="cafe" ng-model="reserva.cafe" ng-true-value="'S'" ng-false-value="'N'"> 
-                                &nbsp; Servir café
+                        <div class="form-row align-items-center">
+                            <div class="form-group col-4" >
+                                <input type="checkbox" name="cafe" id="cafe" ng-model="reserva.cafe" ng-true-value="'S'" ng-false-value="'N'">
+                                <label class="form-check-label" for="cafe">
+                                    Disponibilizar café e/ou chá
+                                </label>
                             </div>
-                            <div class="form-group col-4" style="margin-top: 12px;">
+                            <div class="form-group col-4" >
                                 <label for="qtdPessoas">Quantidade de pessoas:</label>
                                 <input ng-model="reserva.qtdPessoas" class="form-control" type="number" name="qtdPessoas" id="qtdPessoas">
                             </div>
                         </div>
-                        <div class="form-inline">
+                        <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="nome">Observação:</label>
-                                <textarea ng-model="reserva.observacao" ng-required="true" ng-minlength="5" class="form-control" type="text" name="observacao" id="observacao" cols="80" rows="3"></textarea>
+                                <textarea ng-model="reserva.observacao" ng-required="true" ng-minlength="5" class="form-control" type="text" name="observacao" id="observacao" cols="80" rows="2"></textarea>
                             </div>
                         </div>
                     </form>
