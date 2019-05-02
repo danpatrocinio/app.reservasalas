@@ -2,7 +2,7 @@
 
 App Client front-end para API de controle de reservas de salas.
 
-* Foi utilizado a tecnologia AngularJS v1.0 por ser mais ágil no pré processamento e tratamento dos dados desonerando vários processos de validações no lado do servidor back-end.
+* Foi utilizado o framework AngularJS v1.0 por ser mais ágil no pré processamento e tratamento dos dados desonerando vários processos de validações no lado do servidor back-end.
 
 * Para simplificar o design e criar um protótipo da aplicação mais rapidamente foi utilizado o framework de estilo Bootstrap v.4. 
 
