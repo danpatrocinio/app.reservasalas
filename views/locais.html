@@ -2,11 +2,15 @@
     <div style="margin-top: 10px; margin-bottom: 20px;">
         <h3 style="text-align: left">{{tituloApp}}</h3>
     </div>
-    <form class="form-inline">
-        <div class="form-row align-items-center">
+    <form class="form-row">
+        <div class="col">
             <button ng-click="local = {}" type="button" class="btn btn-info my-8 my-sm-2" data-toggle="modal" data-target="#localModal">
                 + Local
             </button>
+        </div>
+        <div class="col"></div>
+        <div class="col">
+            <input ng-model="criterioDeBusca" class="form-control my-8 my-sm-2" type="text" placeholder="Busca rápida" aria-label="Busca">
         </div>
     </form>
 
