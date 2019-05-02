@@ -89,13 +89,13 @@
                             </div>
                             <div class="form-group col-4" >
                                 <label for="qtdPessoas">Quantidade de pessoas:</label>
-                                <input ng-model="reserva.qtdPessoas" class="form-control" type="number" name="qtdPessoas" id="qtdPessoas">
+                                <input ng-model="reserva.qtdPessoas" ng-required="reserva.cafe === 'S'" class="form-control" type="number" name="qtdPessoas" id="qtdPessoas">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <label for="nome">Observação:</label>
-                                <textarea ng-model="reserva.observacao" ng-required="true" ng-minlength="5" class="form-control" type="text" name="observacao" id="observacao" cols="80" rows="2"></textarea>
+                                <textarea ng-model="reserva.observacao" class="form-control" type="text" name="observacao" id="observacao" cols="80" rows="2"></textarea>
                             </div>
                         </div>
                     </form>
@@ -117,6 +117,11 @@
                     <div ng-messages="reservaForm.dhFinal.$error" ng-show="reservaForm.dhFinal.$dirty">
                         <div ng-message="required" class="alert alert-danger">
                             Informe a data e hora final!
+                        </div>
+                    </div>
+                    <div ng-messages="reservaForm.qtdPessoas.$error" ng-show="reserva.cafe === 'S'">
+                        <div ng-message="required" class="alert alert-danger">
+                            Informe a quantidade de pessoas para o café!
                         </div>
                     </div>
                 </div>

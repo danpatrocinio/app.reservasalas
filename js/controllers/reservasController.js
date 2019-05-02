@@ -8,7 +8,7 @@ angular.module("app").controller("reservasController", function($scope, reservas
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.mensagem ? response.data.mensagem : mensagem;
+            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
         });
     };
     $scope.usuarios = [];
@@ -19,7 +19,7 @@ angular.module("app").controller("reservasController", function($scope, reservas
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.mensagem ? response.data.mensagem : mensagem;
+            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
         });
     };
     $scope.salas = [];
@@ -30,7 +30,7 @@ angular.module("app").controller("reservasController", function($scope, reservas
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.mensagem ? response.data.mensagem : mensagem;
+            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
         });
     };
     $scope.adicionarReserva = function(reserva) {
@@ -43,7 +43,7 @@ angular.module("app").controller("reservasController", function($scope, reservas
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.mensagem ? response.data.mensagem : mensagem;
+            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
         });
     };
     $scope.removerReserva = function(reservaParaRemover) {
@@ -56,7 +56,7 @@ angular.module("app").controller("reservasController", function($scope, reservas
         })
         .catch(function(response) {
             var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.mensagem ? response.data.mensagem : mensagem;
+            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
         });
     };
     $scope.editarReserva = function(reservaParaEditar) {
