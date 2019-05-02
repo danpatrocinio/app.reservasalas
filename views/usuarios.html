@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input ng-model="usuario.email" ng-required="true" ng-minlength="3" ng-maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email">
+                            <input ng-model="usuario.email" ng-required="true" ng-minlength="7" ng-maxlength="100" class="form-control" type="email" name="email" id="email" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <label for="telefone">Telefone:</label>
@@ -71,6 +71,11 @@
                         </div>
                         <div ng-message="minlength" class="alert alert-danger">
                             O campo nome deve possuir no mínimo 5 caracteres!
+                        </div>
+                    </div>
+                    <div ng-messages="usuarioForm.email.$error" ng-show="usuarioForm.$error.email">
+                        <div class="alert alert-danger">
+                            Email inválido!
                         </div>
                     </div>
                     <div ng-messages="usuarioForm.email.$error" ng-show="usuarioForm.email.$dirty">
@@ -87,7 +92,6 @@
                     <div ng-show="usuarioForm.telefone.$dirty && usuarioForm.telefone.$error.required" class="alert alert-danger">
                         Preencha o campo telefone!
                     </div>
-                
                     <div ng-show="usuarioForm.telefone.$error.pattern" class="alert alert-danger">
                         O campo telefone deve ter o formato DD-DDDDD-DDDD!
                     </div>
