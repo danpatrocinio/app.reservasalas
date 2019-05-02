@@ -1,0 +1,78 @@
+<div>
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+        <h3 style="text-align: left">{{tituloApp}}</h3>
+    </div>
+    <form class="form-inline">
+        <div class="form-row align-items-center">
+            <button ng-click="local = {}" type="button" class="btn btn-info my-8 my-sm-2" data-toggle="modal" data-target="#localModal">
+                + Local
+            </button>
+        </div>
+    </form>
+
+    <div class="alert-danger">{{mensagemDeErro}}</div>
+    <table class="table table-striped table-sm" ng-show="locais.length">
+        <thead>
+            <th style="width: 5%"><a href="" ng-click="ordenarPor('id')">Cód.</a></th>
+            <th><a href="" ng-click="ordenarPor('descricao')">Descrição</a> </th>
+            <th><a href="" ng-click="ordenarPor('endereco')">Endereço</a> </th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="elemento in locais | filter:criterioDeBusca | orderBy:campoParaOrdenacao:direcaoDaOrdenacao">
+                <td style="width: 5%">{{elemento.id}}</td>
+                <td title="{{elemento.descricao}}">{{elemento.descricao}}</td>
+                <td title="{{elemento.endereco}}">{{elemento.endereco}}</td>
+                <td style="text-align: right;">
+                    <a href="" ng-click="editarLocal(elemento)"><span style="padding: 3px;" title="Editar local" class="fa fa-pencil" data-toggle="modal" data-target="#localModal"></span></a>
+                    <a href="" ng-click="removerLocal(elemento)"><span style="padding: 3px;" title="Remover local" class="fa fa-trash"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5 style="text-align: center" ng-show="!locais.length">Não existem locais a serem demonstrados. Clique em 'Novo' para adicionar!</h5>
+
+    <!-- Modal -->
+    <div class="modal fade" id="localModal" tabindex="-1" role="dialog" aria-labelledby="localModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="localModalLabel">{{!local.id ? 'Adicionando local' : 'Editando local'}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="localForm" name="localForm">
+                    <div class="form-group">
+                        <label for="descricao">Descrição: </label>
+                        <input ng-model="local.descricao" ng-required="true" ng-minlength="2" class="form-control" type="text" name="descricao" id="descricao" placeholder="Descrição">
+                    </div>
+                    <div class="form-group">
+                        <label for="endereco">Endereço: </label>
+                        <input ng-model="local.endereco" ng-required="true" ng-minlength="2" class="form-control" type="text" name="endereco" id="endereco" placeholder="Endereço">
+                    </div>
+                </form>            
+                <div ng-messages="localForm.descricao.$error" ng-show="localForm.descricao.$dirty">
+                    <div ng-message="required" class="alert alert-danger">
+                        Preencha o campo descrição!
+                    </div>
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo descrição deve possuir no mínimo 2 caracteres!
+                    </div>
+                </div>
+                <div ng-messages="localForm.endereco.$error" ng-show="localForm.endereco.$dirty">
+                    <div ng-message="minlength" class="alert alert-danger">
+                        O campo endereço deve possuir no mínimo 2 caracteres!
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="adicionarLocal(local)" ng-disabled="localForm.$invalid" data-dismiss="modal">Salvar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

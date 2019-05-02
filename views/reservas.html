@@ -1,0 +1,123 @@
+<div>
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+        <h3 style="text-align: left">{{tituloApp}}</h3>
+    </div>
+    <form class="form-inline">
+        <div class="form-row align-items-center">
+            <button ng-click="reserva = {}" type="button" class="btn btn-info my-8 my-sm-2" data-toggle="modal" data-target="#reservaModal">
+                + Reserva
+            </button>
+        </div>
+    </form>
+
+    <div class="alert-danger">{{mensagemDeErro}}</div>
+    <table class="table table-striped table-sm" ng-show="reservas.length">
+        <thead>
+            <th><a href="" ng-click="ordenarPor('sala.descricao')">Sala</a> </th>
+            <th><a href="" ng-click="ordenarPor('dhInicio')">Data/hora inicial</a></th>
+            <th><a href="" ng-click="ordenarPor('dhFinal')">Data/hora final</a></th>
+            <th><a href="" ng-click="ordenarPor('usuario.nome')">Responsável</a></th>
+            <th></th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="elemento in reservas | filter:criterioDeBusca | orderBy:campoParaOrdenacao:direcaoDaOrdenacao">
+                <td title="{{elemento.sala.descricao}}">{{'[' + elemento.sala.local.descricao + '] - ' + elemento.sala.descricao}}</td>
+                <td>{{elemento.dhInicio | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{elemento.dhFinal | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>{{elemento.usuario.nome}}</td>
+                <td style="text-align: right;">
+                    <a href="" ng-click="editarReserva(elemento)"><span style="padding: 3px;" title="Editar reserva" class="fa fa-pencil" data-toggle="modal" data-target="#reservaModal"></span></a>
+                    <a href="" ng-click="removerReserva(elemento)"><span style="padding: 3px;" title="Remover reserva" class="fa fa-trash"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5 style="text-align: center" ng-show="!reservas.length">Não existem reservas a serem demonstradas. Clique em 'Nova' para adicionar!</h5>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="reservaModal" tabindex="-1" role="dialog" aria-labelledby="reservaModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservaModalLabel">{{!reserva.id ? 'Adicionando reserva' : 'Editando reserva'}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservaForm" name="reservaForm">
+                        <div class="form-group col-12">
+                            <label for="salas">Sala:</label>
+                            <select id="salas" class="custom-select" ng-model="reserva.sala" ng-required="true">
+                                <option value ="">Selecione a sala</option>
+                                <option ng-repeat="sala in salas | orderBy:'nome'" ng-value="sala" ng-selected="reserva.sala.id === sala.id">
+                                    {{'[' + sala.local.descricao + '] - ' + sala.descricao}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="usuarios">Usuário:</label>
+                            <select id="usuarios" class="custom-select" ng-model="reserva.usuario" ng-required="true">
+                                <option value ="">Selecione a usuário</option>
+                                <option ng-repeat="usuario in usuarios | orderBy:'nome'" ng-value="usuario" ng-selected="reserva.usuario.id === usuario.id">
+                                    {{usuario.nome}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group col-4">
+                                <label>Data/hora início:</label>
+                                <input ng-model="reserva.dhInicio" ng-required="true" class="form-control" type="datetime-local" name="dhInicio" id="dhInicio" required>
+                            </div>
+                            <div class="form-group col-4">
+                                <label>Data/hora final:</label>
+                                <input ng-model="reserva.dhFinal" ng-required="true" class="form-control" type="datetime-local" name="dhFinal" id="dhFinal" required>
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group col-4">
+                                <input type="checkbox" name="cafe" id="cafe" ng-model="reserva.cafe" ng-true-value="'S'" ng-false-value="'N'"> 
+                                &nbsp; Servir café
+                            </div>
+                            <div class="form-group col-4" style="margin-top: 12px;">
+                                <label for="qtdPessoas">Quantidade de pessoas:</label>
+                                <input ng-model="reserva.qtdPessoas" class="form-control" type="number" name="qtdPessoas" id="qtdPessoas">
+                            </div>
+                        </div>
+                        <div class="form-inline">
+                            <div class="form-group col-12">
+                                <label for="nome">Observação:</label>
+                                <textarea ng-model="reserva.observacao" ng-required="true" ng-minlength="5" class="form-control" type="text" name="observacao" id="observacao" cols="80" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                    <div ng-messages="reservaForm.salas.$error" ng-show="reservaForm.salas.$dirty">
+                        <div ng-message="required" class="alert alert-danger">
+                            Selecione a sala!
+                        </div>
+                    </div>
+                    <div ng-messages="reservaForm.usuarios.$error" ng-show="reservaForm.usuarios.$dirty">
+                        <div ng-message="required" class="alert alert-danger">
+                            Selecione o usuário!
+                        </div>
+                    </div>
+                    <div ng-messages="reservaForm.dhInicio.$error" ng-show="reservaForm.dhInicio.$dirty">
+                        <div ng-message="required" class="alert alert-danger">
+                            Informe a data e hora de início!
+                        </div>
+                    </div>
+                    <div ng-messages="reservaForm.dhFinal.$error" ng-show="reservaForm.dhFinal.$dirty">
+                        <div ng-message="required" class="alert alert-danger">
+                            Informe a data e hora final!
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="adicionarReserva(reserva)" ng-disabled="reservaForm.$invalid" data-dismiss="modal">Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
