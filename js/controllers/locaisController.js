@@ -1,4 +1,6 @@
-angular.module("app").controller("locaisController", function($scope, locaisAPI) {
+angular.module("app").controller("locaisController", locaisController);
+
+function locaisController($scope, locaisAPI) {
 
     $scope.tituloApp = "Listagem de locais";
     $scope.locais = [];
@@ -48,4 +50,4 @@ angular.module("app").controller("locaisController", function($scope, locaisAPI)
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
     carregarLocais();
-});
+};

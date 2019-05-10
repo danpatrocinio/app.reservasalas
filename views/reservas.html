@@ -13,6 +13,7 @@
             <input ng-model="criterioDeBusca" class="form-control my-8 my-sm-2" type="text" placeholder="Busca rápida" aria-label="Busca">
         </div>
     </form>
+    <br>
     <div class="alert-danger">{{mensagemDeErro}}</div>
     <table class="table table-striped table-sm" ng-show="reservas.length">
         <thead>
@@ -36,7 +37,8 @@
         </tbody>
     </table>
 
-    <h5 style="text-align: center" ng-show="!reservas.length">Não existem reservas a serem demonstradas. Clique em 'Nova' para adicionar!</h5>
+    <br>
+    <h5 style="text-align: center" ng-show="!reservas.length">Não existem reservas a serem demonstradas. Clique em '+ Reserva' para adicionar!</h5>
     
     <!-- Modal -->
     <div class="modal fade" id="reservaModal" tabindex="-1" role="dialog" aria-labelledby="reservaModalLabel" aria-hidden="true" data-backdrop="static">

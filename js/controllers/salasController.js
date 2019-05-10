@@ -1,4 +1,7 @@
-angular.module("app").controller("salasController", function($scope, salasAPI, locaisAPI) {
+angular.module("app").controller("salasController", salasController);
+
+function salasController($scope, salasAPI, locaisAPI) {
+
     $scope.tituloApp = "Listagem de salas";
     $scope.salas = [];
     var carregarSalas = function() {
@@ -58,4 +61,4 @@ angular.module("app").controller("salasController", function($scope, salasAPI, l
     };
     carregarSalas();
     carregaLocais();
-});
+};

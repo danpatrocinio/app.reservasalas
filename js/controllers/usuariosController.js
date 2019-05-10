@@ -1,4 +1,6 @@
-angular.module("app").controller("usuariosController", function($scope, usuariosAPI) {
+angular.module("app").controller("usuariosController", usuariosController);
+
+function usuariosController($scope, usuariosAPI) {
 
     $scope.tituloApp = "Listagem de usuários";
     $scope.usuarios = [];
@@ -47,4 +49,4 @@ angular.module("app").controller("usuariosController", function($scope, usuarios
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
     };
     carregarUsuarios();
-});
+};
