@@ -1,52 +1,61 @@
-angular.module("app").controller("usuariosController", usuariosController);
+(function() {
 
-function usuariosController($scope, usuariosAPI) {
+    'use strict';
 
-    $scope.tituloApp = "Listagem de usuários";
-    $scope.usuarios = [];
-    var carregarUsuarios = function() {
-        usuariosAPI.getUsuarios()
-        .then(function(response) {
-            $scope.usuarios = response.data;
-        })
-        .catch(function(response) {
-            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
-        });
-    };
+    angular.module("app").controller("usuariosController", usuariosController);
 
-    $scope.adicionarUsuario = function(usuario) {
-        var novoUsuario = angular.copy(usuario);
-        usuariosAPI.saveUsuario(novoUsuario)
-        .then(function(response) {
-            delete $scope.usuario;
-            $scope.usuarioForm.$setPristine();
-            carregarUsuarios();
-        })
-        .catch(function(response) {
-            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
-        });
-    };
-    $scope.removerUsuario = function(usuarioParaRemover) {
-        if(!confirm('Deseja realmente excluir?')) { 
-            return; 
+    usuariosController.$inject = ['$scope', 'usuariosAPI'];
+
+    function usuariosController($scope, usuariosAPI) {
+        
+        var vm = $scope;
+
+        vm.tituloApp = "Listagem de usuários";
+        vm.usuarios = [];
+        var carregarUsuarios = function() {
+            usuariosAPI.getUsuarios()
+            .then(function(response) {
+                vm.usuarios = response.data;
+            })
+            .catch(function(response) {
+                var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+                vm.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
+            });
         };
-        usuariosAPI.removeUsuario(usuarioParaRemover)
-        .then(function(response) {
-            carregarUsuarios();
-        })
-        .catch(function(response) {
-            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
-        });
+
+        vm.adicionarUsuario = function(usuario) {
+            var novoUsuario = angular.copy(usuario);
+            usuariosAPI.saveUsuario(novoUsuario)
+            .then(function(response) {
+                delete vm.usuario;
+                vm.usuarioForm.$setPristine();
+                carregarUsuarios();
+            })
+            .catch(function(response) {
+                var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+                vm.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
+            });
+        };
+        vm.removerUsuario = function(usuarioParaRemover) {
+            if(!confirm('Deseja realmente excluir?')) { 
+                return; 
+            };
+            usuariosAPI.removeUsuario(usuarioParaRemover)
+            .then(function(response) {
+                carregarUsuarios();
+            })
+            .catch(function(response) {
+                var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+                vm.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
+            });
+        };
+        vm.editarUsuario = function(usuarioParaEditar) {
+            vm.usuario = angular.copy(usuarioParaEditar);
+        };
+        vm.ordenarPor = function(nomeDoCampo) {
+            vm.campoParaOrdenacao = nomeDoCampo;
+            vm.direcaoDaOrdenacao = !vm.direcaoDaOrdenacao;
+        };
+        carregarUsuarios();
     };
-    $scope.editarUsuario = function(usuarioParaEditar) {
-        $scope.usuario = angular.copy(usuarioParaEditar);
-    };
-    $scope.ordenarPor = function(nomeDoCampo) {
-        $scope.campoParaOrdenacao = nomeDoCampo;
-        $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
-    };
-    carregarUsuarios();
-};
+})();

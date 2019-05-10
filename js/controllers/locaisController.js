@@ -1,53 +1,62 @@
-angular.module("app").controller("locaisController", locaisController);
+(function() {
+    
+    'use strict';
 
-function locaisController($scope, locaisAPI) {
+    angular.module("app").controller("locaisController", locaisController);
 
-    $scope.tituloApp = "Listagem de locais";
-    $scope.locais = [];
-    var carregarLocais = function() {
-        locaisAPI.getLocais()
-        .then(function(response) {
-            $scope.locais = response.data;
-        })
-        .catch(function(response) {
-            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
-        });
-    };
+    locaisController.$inject = ['$scope', 'locaisAPI'];
 
-    $scope.adicionarLocal = function(local) {
-        var novoLocal = angular.copy(local);
-        locaisAPI.saveLocal(novoLocal)
-        .then(function(response) {
-            delete $scope.local;
-            $scope.localForm.$setPristine();
-            carregarLocais();
-        })
-        .catch(function(response) {
-            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
-        });
-    };
+    function locaisController($scope, locaisAPI) {
+    
+        var vm = $scope;
 
-    $scope.removerLocal = function(localParaRemover) {
-        if(!confirm('Deseja realmente excluir?')) { 
-            return; 
+        vm.tituloApp = "Listagem de locais";
+        vm.locais = [];
+        var carregarLocais = function() {
+            locaisAPI.getLocais()
+            .then(function(response) {
+                vm.locais = response.data;
+            })
+            .catch(function(response) {
+                var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+                vm.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
+            });
         };
-        locaisAPI.removeLocal(localParaRemover)
-        .then(function(response) {
-            carregarLocais();
-        })
-        .catch(function(response) {
-            var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
-            $scope.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
-        });
+    
+        vm.adicionarLocal = function(local) {
+            var novoLocal = angular.copy(local);
+            locaisAPI.saveLocal(novoLocal)
+            .then(function(response) {
+                delete vm.local;
+                vm.localForm.$setPristine();
+                carregarLocais();
+            })
+            .catch(function(response) {
+                var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+                vm.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
+            });
+        };
+    
+        vm.removerLocal = function(localParaRemover) {
+            if(!confirm('Deseja realmente excluir?')) { 
+                return; 
+            };
+            locaisAPI.removeLocal(localParaRemover)
+            .then(function(response) {
+                carregarLocais();
+            })
+            .catch(function(response) {
+                var mensagem = "Deu erro: " + response.status + " - " + response.statusText;
+                vm.mensagemDeErro = !!response.data.error ? response.data.error : mensagem;
+            });
+        };
+        vm.editarLocal = function(localParaEditar) {
+            vm.local = angular.copy(localParaEditar);
+        };
+        vm.ordenarPor = function(nomeDoCampo) {
+            vm.campoParaOrdenacao = nomeDoCampo;
+            vm.direcaoDaOrdenacao = !vm.direcaoDaOrdenacao;
+        };
+        carregarLocais();
     };
-    $scope.editarLocal = function(localParaEditar) {
-        $scope.local = angular.copy(localParaEditar);
-    };
-    $scope.ordenarPor = function(nomeDoCampo) {
-        $scope.campoParaOrdenacao = nomeDoCampo;
-        $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
-    };
-    carregarLocais();
-};
+})();

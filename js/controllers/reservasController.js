@@ -1,4 +1,7 @@
 (function() {
+    
+    'use strict';
+
     angular.module("app").controller("reservasController", reservasController);
 
     reservasController.$inject = ['$scope','reservasAPI', 'salasAPI', 'usuariosAPI'];
